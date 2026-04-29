@@ -1,1 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vitor Elian — Perfil</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --accent: #7F77DD;
+      --accent-light: #EEEDFE;
+      --bg: #F4F3F0;
+      --surface: #FFFFFF;
+      --border: rgba(0,0,0,0.08);
+      --text: #1a1a1a;
+      --muted: #888780;
+      --radius: 16px;
+      --sidebar-w: 210px;
+    }
+
+    html, body {
+      min-height: 100vh;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    body {
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      grid-template-rows: 1fr auto;
+      grid-template-areas:
+        "sidebar main"
+        "footer  footer";
+      gap: 12px;
+      padding: 12px;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      grid-area: sidebar;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .avatar-wrap {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid var(--surface);
+      background: var(--accent-light);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 38px;
+      color: var(--accent);
+      box-shadow: 0 4px 24px rgba(127,119,221,0.18);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .sidebar-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 0.5px solid var(--border);
+      padding: 68px 18px 20px;
+      margin-top: -52px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+
+    .sidebar-card h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--text);
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    .sidebar-card .handle {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+      margin-bottom: 12px;
+    }
+
+    .bio {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .divider {
+      width: 100%;
+      height: 0.5px;
+      background: var(--border);
+      margin: 8px 0 14px;
+    }
+
+    .social-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%;
+      margin-top: auto;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 10px;
+      border-radius: 10px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .social-link:hover {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+
+    .social-link img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    /* MAIN */
+    .main-col {
+      grid-area: main;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 0.5px solid var(--border);
+      padding: 24px 28px;
+    }
+
+    .article-card h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 36px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .article-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .gallery-card { flex: 1; }
+
+    .gallery-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .gallery-header h2 {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .gallery-count {
+      font-size: 11px;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 2px 10px;
+      border-radius: 20px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: 100px 100px;
+      gap: 8px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .gallery-grid img:hover {
+      transform: scale(1.03);
+      opacity: 0.88;
+    }
+
+    .gallery-grid img:nth-child(1) {
+      grid-column: 1 / 3;
+      grid-row: 1 / 3;
+    }
+
+    .gallery-grid img:nth-child(4) {
+      grid-column: 4 / 6;
+      grid-row: 1 / 3;
+    }
+
+    /* FOOTER */
+    footer {
+      grid-area: footer;
+      background: var(--surface);
+      border-radius: 10px;
+      border: 0.5px solid var(--border);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .sidebar      { animation: fadeUp 0.5s ease both 0.05s; }
+    .article-card { animation: fadeUp 0.5s ease both 0.15s; }
+    .gallery-card { animation: fadeUp 0.5s ease both 0.25s; }
+    footer        { animation: fadeUp 0.5s ease both 0.3s;  }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      body {
+        grid-template-columns: 1fr;
+        grid-template-areas: "sidebar" "main" "footer";
+      }
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+        grid-auto-rows: 90px;
+      }
+      .gallery-grid img:nth-child(1),
+      .gallery-grid img:nth-child(4) {
+        grid-column: auto;
+        grid-row: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="avatar-wrap">
+      <div class="avatar">
+        <img src="Imagens/imagem minion.png" alt="Foto de Vitor Elian"
+             onerror="this.style.display='none'">
+        VE
+      </div>
+    </div>
+    <div class="sidebar-card">
+      <h2>Vitor Elian</h2>
+      <span class="handle">@vitorelian</span>
+      <p class="bio">Muita resenha por aqui!</p>
+      <div class="divider"></div>
+      <nav class="social-list">
+        <a class="social-link" href="https://www.facebook.com" target="_blank" rel="noopener">
+          <img src="Imagens/facebook.png" alt="Logo Facebook"> Facebook
+        </a>
+        <a class="social-link" href="https://www.twitter.com" target="_blank" rel="noopener">
+          <img src="Imagens/twitter.png" alt="Logo Twitter"> Twitter
+        </a>
+        <a class="social-link" href="https://www.instagram.com" target="_blank" rel="noopener">
+          <img src="Imagens/instagram.png" alt="Logo Instagram"> Instagram
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <div class="main-col">
+    <div class="card article-card">
+      <h1>Article title</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel sapien eget
+        nunc efficitur commodo. Sed ut perspiciatis unde omnis iste natus error sit
+        voluptatem accusantium doloremque laudantium.</p>
+    </div>
+
+    <div class="card gallery-card">
+      <div class="gallery-header">
+        <h2>Galeria</h2>
+        <span class="gallery-count">10 fotos</span>
+      </div>
+      <div class="gallery-grid">
+        <img src="https://picsum.photos/500/400?1" alt="Foto 1">
+        <img src="https://picsum.photos/400/500?2" alt="Foto 2">
+        <img src="https://picsum.photos/300/360?3" alt="Foto 3">
+        <img src="https://picsum.photos/200/400?4" alt="Foto 4">
+        <img src="https://picsum.photos/400/600?5" alt="Foto 5">
+        <img src="https://picsum.photos/600/450?6" alt="Foto 6">
+        <img src="https://picsum.photos/200/200?7" alt="Foto 7">
+        <img src="https://picsum.photos/490/500?8" alt="Foto 8">
+        <img src="https://picsum.photos/200/200?9" alt="Foto 9">
+        <img src="https://picsum.photos/200/200?10" alt="Foto 10">
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2024 Vitor Elian. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
